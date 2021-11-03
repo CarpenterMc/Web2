@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Community Rugby Club</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/formsubmit.js"></script>
+    <!-- <link rel="stylesheet" href="css/style.css" type="text/css" media="all" /> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input[type=submit] {
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+            padding: 10px 50px;
+            font-size: 25px;
+            color: #fff;
+            border-style: none;
+            background-color: #97e4dc;
+            margin-bottom: 30px;
+        }
+
+        select {
+            /* text-align: center; */
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+            padding: 10px 50px;
+            font-size: 25px;
+            margin-top: 30px;
+
+        }
+
+        #login {
+            position: relative;
+            top: 50%;
+            height: 400px;
+
+            width: 600px;
+            background-color: #fff;
+            margin: 0 auto;
+            margin-top: -200px;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background-color: #f7f6fb
+        }
+
+        #title {
+            margin: auto;
+            text-align: center;
+            font-size: 30px;
+            padding-top: 50px;
+            margin-bottom: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login">
+
+        <form action="./index.html" method="get">
+            <p id="title">
+                Community Rugby Club</p>
+
+            <select id="name_list" name="id"
+                style="padding-top: 5px;margin-bottom: 50px;margin-left: 60px;font-size: 35px">
+
+            </select>
+            <!-- <input type="text" style="padding-top: 5px;margin-bottom: 0px;margin-left: 60px;font-size: 35px"
+                    placeholder="" name="name" required>
+                <p style="text-align:right;padding-right: 68px;margin-top: 0px;">Forget password?</p> -->
+            <input id="submit" type="submit" value="Submit">
+
+        </form>
+
+    </div>
+    <script>
+        const instance = axios.get("http://localhost:5000/list").then((res) => {
+            var selectList = document.getElementById("name_list")
+            var jsonRet = res.data
+            console.log(jsonRet);
+            for (var key in jsonRet) {
+                console.log(jsonRet[key].ID)
+                var fullName = jsonRet[key].MemberFirstName + " " + jsonRet[key].MemberLastName
+                var objOption = document.createElement("option");
+                objOption.value = jsonRet[key].ID;
+                objOption.text = fullName;
+                selectList.add(objOption);
+            }
+        })
+    </script>
+</body>
+
+</html>
